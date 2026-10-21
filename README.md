@@ -189,4 +189,4 @@ Esses conhecimentos são úteis em **Suporte de TI e Redes** para investigar sit
 
 ## Origem do laboratório
 
-Atividade do **Programa Mulher Digital**, sobre comunicação entre três redes distintas no Cisco Packet Tracer. Documentação organizada para registrar os conceitos e configurações estudados, sem representar uma implantação corporativa.
+Atividade do **Programa Mulher Digital**, sobre comunicação entre três redes distintas no Cisco Packet Tracer.
