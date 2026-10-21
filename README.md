@@ -115,8 +115,6 @@ O roteador utiliza uma interface para cada rede. No material da atividade, as in
 | PC C1 | `192.168.1.2` | `255.255.255.0` | `192.168.1.1` |
 | PC C2 | `192.168.1.3` | `255.255.255.0` | `192.168.1.1` |
 
----
-
 Em cada computador, acessar **Desktop > IP Configuration** e preencher os campos de endereço IPv4, máscara e gateway.
 
 ---
@@ -159,6 +157,8 @@ O slide da **etapa 13** apresenta um exemplo de verificação de conectividade n
 
 **Importante:** o sucesso mostrado no slide é uma referência da atividade; sem registros da execução individual ou acesso ao arquivo `.pkt`, ele não comprova, por si só, o resultado da minha própria simulação.
 
+---
+
 ## Conhecimentos adquiridos
 
 - **Endereçamento IPv4:** cada computador precisa de um endereço compatível com a rede à qual pertence.
@@ -168,6 +168,8 @@ O slide da **etapa 13** apresenta um exemplo de verificação de conectividade n
 - **Diagnóstico de conectividade:** testes ICMP ajudam a investigar falhas de comunicação.
 
 Esses conhecimentos são úteis em **Suporte de TI e Redes** para investigar situações em que um computador consegue acessar equipamentos locais, mas não recursos de outro setor.
+
+---
 
 ## Entendendo os termos técnicos
 
