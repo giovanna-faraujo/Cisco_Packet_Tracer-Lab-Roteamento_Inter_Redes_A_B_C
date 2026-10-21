@@ -6,6 +6,8 @@ Neste laboratório do Programa Mulher Digital, utilizei o **Cisco Packet Tracer*
 
 O objetivo foi compreender como configurar endereços IPv4, máscaras e gateways e como o roteador permite a comunicação entre dispositivos de redes diferentes.
 
+<img width="1536" height="1024" alt="Infográfico de Redes IPv4 no Cisco Packet Tracer" src="https://github.com/user-attachments/assets/9677f9e9-e5a7-47b9-bf3a-00c6f75f3551" />
+
 ---
 
 ## Objetivos
