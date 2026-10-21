@@ -1,118 +1,180 @@
-# Roteamento entre redes IPv4 no Cisco Packet Tracer
+# Roteamento entre três redes IPv4 no Cisco Packet Tracer
 
 ## Visão geral
 
-Neste laboratório, foi montada uma topologia no Cisco Packet Tracer para estudar a comunicação entre três redes IPv4 utilizando um roteador Cisco 2911 e três switches Cisco 2960-24TT.
+Neste laboratório do Programa Mulher Digital, utilizei o **Cisco Packet Tracer** para estudar a comunicação entre três redes IPv4 distintas. A topologia do exercício reúne um roteador **Cisco 2911**, três switches **Cisco 2960** e seis computadores, distribuídos em três redes.
 
-A atividade aborda endereçamento IPv4, gateway padrão e o papel do roteador na comunicação entre redes diferentes.
-
-![Topologia do laboratório](https://github.com/user-attachments/assets/c87e1dee-1aa0-4135-86e2-e418ee63704c)
-
----
+O objetivo foi compreender como configurar endereços IPv4, máscaras e gateways e como o roteador permite a comunicação entre dispositivos de redes diferentes.
 
 ## Objetivos
 
-- Organizar três segmentos de rede com faixas de endereços diferentes.
-- Compreender a função dos switches e do roteador.
-- Configurar endereços IPv4 estáticos e gateways, conforme o exercício.
-- Estudar como o tráfego é encaminhado entre redes.
+- Montar uma topologia com três redes conectadas a um roteador central.
+- Conectar os computadores aos switches e os switches ao roteador.
+- Configurar endereços IPv4 estáticos, máscaras e gateways.
+- Entender a diferença entre a comunicação dentro de uma rede e entre redes distintas.
+- Estudar a verificação de conectividade usando ICMP.
 
----
+## Ferramentas e dispositivos
 
-## Onde esse conhecimento pode ser aplicado?
+| Dispositivo | Quantidade | Função |
+|---|---:|---|
+| Cisco Packet Tracer | 1 | Simular o ambiente de rede. |
+| Roteador Cisco 2911 | 1 | Encaminhar o tráfego entre as três redes. |
+| Switch Cisco 2960 | 3 | Conectar os computadores de cada rede. |
+| Computador PC-PT | 6 | Representar os dispositivos finais. |
 
-**Cenário fictício: comunicação entre setores**
+## Topologia
 
-**Situação:** uma empresa organiza os computadores do Financeiro, Comercial e Operações em redes diferentes. Os funcionários precisam acessar determinados recursos de outros setores.
+![Topologia do laboratório](https://github.com/user-attachments/assets/c87e1dee-1aa0-4135-86e2-e418ee63704c)
 
-**Aplicação:** um roteador pode permitir a comunicação entre essas redes, desde que o endereçamento e os gateways estejam corretos. Regras de segurança adicionais podem limitar quais acessos são permitidos.
+Cada rede possui dois computadores ligados a um switch. Os três switches estão conectados ao roteador central.
 
-**Benefício e relação com o laboratório:** entender o roteamento ajuda a organizar a rede e investigar problemas de conectividade entre setores. O cenário é ilustrativo e não representa uma implantação real.
+## Configurações realizadas no exercício
 
----
+### Resumo do endereçamento
 
-## Configurações de rede
-
-| Segmento | Rede informada | Gateway informado | Máscara informada |
-|---|---|---|---|
-| Rede A | `10.0.0.0/8` | `10.0.0.1` | `255.0.0.0` |
-| Rede B | `172.16.0.0/16` | `172.16.0.1` | `255.240.0.0` |
-| Rede C | `192.168.1.0/24` | `192.168.1.1` | `255.255.255.0` |
-
-**Atenção à Rede B:** o prefixo `/16` corresponde à máscara `255.255.0.0`, enquanto `255.240.0.0` corresponde a `/12`. É necessário conferir qual máscara foi aplicada no Packet Tracer antes de tratar esses valores como uma configuração consistente.
+| Rede | Endereço de rede | Máscara | Prefixo CIDR | Gateway |
+|---|---|---|---|---|
+| Rede A | `10.0.0.0` | `255.0.0.0` | `/8` | `10.0.0.1` |
+| Rede B | `172.16.0.0` | `255.255.0.0` | `/16` | `172.16.0.1` |
+| Rede C | `192.168.1.0` | `255.255.255.0` | `/24` | `192.168.1.1` |
 
 ### Roteador Cisco 2911
 
-| Segmento conectado | Gateway informado | Interface física |
+O roteador utiliza uma interface para cada rede. No material da atividade, as interfaces são habilitadas (**On**) e recebem os seguintes endereços:
+
+| Interface | Rede conectada | Endereço IPv4 | Máscara | Estado previsto |
+|---|---|---|---|---|
+| `GigabitEthernet0/0` | Rede A | `10.0.0.1` | `255.0.0.0` | On |
+| `GigabitEthernet0/1` | Rede B | `172.16.0.1` | `255.255.0.0` | On |
+| `GigabitEthernet0/2` | Rede C | `192.168.1.1` | `255.255.255.0` | On |
+
+**Como foi orientado:** acessar a aba **Config** do roteador e definir o endereço IPv4 em cada interface. Os endereços do roteador também são utilizados como gateways pelos computadores de cada rede.
+
+### Computadores da Rede A
+
+| Computador | IPv4 | Máscara | Gateway |
+|---|---|---|---|
+| PC A1 | `10.0.0.2` | `255.0.0.0` | `10.0.0.1` |
+| PC A2 | `10.0.0.3` | `255.0.0.0` | `10.0.0.1` |
+
+### Computadores da Rede B
+
+| Computador | IPv4 | Máscara | Gateway |
+|---|---|---|---|
+| PC B1 | `172.16.0.2` | `255.255.0.0` | `172.16.0.1` |
+| PC B2 | `172.16.0.3` | `255.255.0.0` | `172.16.0.1` |
+
+### Computadores da Rede C
+
+| Computador | IPv4 | Máscara | Gateway |
+|---|---|---|---|
+| PC C1 | `192.168.1.2` | `255.255.255.0` | `192.168.1.1` |
+| PC C2 | `192.168.1.3` | `255.255.255.0` | `192.168.1.1` |
+
+**Como foi orientado:** em cada computador, acessar **Desktop > IP Configuration** e preencher os campos de endereço IPv4, máscara e gateway.
+
+### Conexões do roteador aos switches
+
+O material orienta utilizar o cabo **Copper Straight-Through** nas conexões.
+
+| Origem (roteador) | Destino (switch) |
+|---|---|
+| `GigabitEthernet0/0` | Switch A — `FastEthernet0/1` |
+| `GigabitEthernet0/1` | Switch B — `FastEthernet0/1` |
+| `GigabitEthernet0/2` | Switch C — `FastEthernet0/1` |
+
+### Conexões dos computadores aos switches
+
+| Computador / porta | Switch / porta | Rede |
 |---|---|---|
-| Rede A | `10.0.0.1` | Não informada |
-| Rede B | `172.16.0.1` | Não informada |
-| Rede C | `192.168.1.1` | Não informada |
+| PC A1 — `FastEthernet0` | Switch A — `FastEthernet0/2` | A |
+| PC A2 — `FastEthernet0` | Switch A — `FastEthernet0/3` | A |
+| PC B1 — `FastEthernet0` | Switch B — `FastEthernet0/2` | B |
+| PC B2 — `FastEthernet0` | Switch B — `FastEthernet0/3` | B |
+| PC C1 — `FastEthernet0` | Switch C — `FastEthernet0/2` | C |
+| PC C2 — `FastEthernet0` | Switch C — `FastEthernet0/3` | C |
 
-Os gateways acima constam na descrição do laboratório. A associação a interfaces específicas do roteador depende da conferência do arquivo da simulação.
-
-### Switches Cisco 2960-24TT
-
-| Equipamento | Segmento atendido | Função |
-|---|---|---|
-| Switch da Rede A | Rede A | Conectar os dispositivos locais. |
-| Switch da Rede B | Rede B | Conectar os dispositivos locais. |
-| Switch da Rede C | Rede C | Conectar os dispositivos locais. |
-
-Não foram fornecidas configurações individuais de portas ou VLANs.
-
-### Computadores PC-PT
-
-Os computadores representam os dispositivos finais dos três segmentos. Seus endereços IPv4, máscaras e gateways individuais precisam ser conferidos no arquivo do Packet Tracer antes de serem documentados.
+> O material apresenta a conexão física dos switches, mas não exige configurações individuais de VLANs ou endereços de gerenciamento neles.
 
 ## Etapas da atividade
 
-1. Montagem da topologia com um roteador central, três switches e computadores.
-2. Organização dos dispositivos em três segmentos IPv4.
-3. Definição das faixas de endereçamento e dos gateways de cada rede.
-4. Estudo da comunicação entre segmentos por meio do roteador.
+1. Adicionar um roteador Cisco 2911 e renomeá-lo para **Roteador**.
+2. Adicionar três switches Cisco 2960: **Switch A**, **Switch B** e **Switch C**.
+3. Adicionar seis computadores, dois para cada rede.
+4. Organizar a topologia em três segmentos.
+5. Conectar os switches ao roteador e os computadores aos respectivos switches.
+6. Configurar os endereços IPv4, máscaras e gateways dos computadores.
+7. Configurar e habilitar as três interfaces do roteador.
+8. Verificar a comunicação entre computadores de redes diferentes.
 
-A descrição recebida menciona diagnóstico com ICMP, mas não apresenta comandos, capturas ou resultados dos testes.
-
-## Fluxograma
+## Fluxograma da atividade
 
 ```mermaid
 flowchart TD
-    A[Montagem da topologia] --> B[Organização das três redes]
-    B --> C[Definição dos endereços IPv4]
-    C --> D[Configuração dos gateways]
-    D --> E[Comunicação entre redes pelo roteador]
-    E --> F[Conferência das configurações e conectividade]
+    A[Montar a topologia] --> B[Conectar roteador, switches e PCs]
+    B --> C[Configurar IPv4 e máscaras dos PCs]
+    C --> D[Definir gateways dos PCs]
+    D --> E[Configurar interfaces do roteador]
+    E --> F[Verificar comunicação entre as redes]
 ```
-
----
 
 ## Testes e resultados
 
-| Verificação | Objetivo |
-|---|---|---|
-| Conferência dos endereços IPv4 | Verificar a configuração de cada segmento. |
-| Conferência da máscara da Rede B | Resolver a divergência entre `/16` e `255.240.0.0`. |
-| Teste ICMP entre redes | Verificar se computadores de redes diferentes conseguem se comunicar. |
+O slide da **etapa 13** apresenta um exemplo de verificação de conectividade no Packet Tracer: um pacote **ICMP** enviado do **PC A2** ao **PC B2**, com indicação **Successful** na janela de eventos da simulação ilustrada.
 
----
+| Verificação | O que permite observar | Evidência disponível |
+|---|---|---|
+| Endereçamento dos PCs | Se cada computador pertence à rede planejada. | Configurações especificadas nos slides. |
+| Interfaces do roteador | Se existe um gateway previsto para cada rede. | Endereços e interfaces especificados nos slides. |
+| ICMP entre Rede A e Rede B | Se dispositivos em redes distintas conseguem trocar pacotes. | Exemplo visual de sucesso entre PC A2 e PC B2 no slide 18. |
+| Testes adicionais entre todas as redes | Se a conectividade funciona em todos os pares. | Não há resultados individuais documentados no material. |
+
+**Importante:** o sucesso mostrado no slide é uma referência da atividade; sem registros da execução individual ou acesso ao arquivo `.pkt`, ele não comprova, por si só, o resultado da minha própria simulação.
 
 ## Conhecimentos adquiridos
 
-A atividade ajuda a compreender a diferença entre a comunicação local, realizada por meio dos switches, e a comunicação entre redes, encaminhada pelo roteador. Também reforça a importância de configurar corretamente o endereço IPv4, a máscara e o gateway padrão de cada dispositivo.
+- **Endereçamento IPv4:** cada computador precisa de um endereço compatível com a rede à qual pertence.
+- **Máscara de rede:** define quais endereços fazem parte do mesmo segmento.
+- **Gateway padrão:** indica para onde o computador envia tráfego destinado a outras redes.
+- **Switch e roteador:** o switch conecta equipamentos dentro de um segmento, enquanto o roteador interliga redes diferentes.
+- **Diagnóstico de conectividade:** testes ICMP ajudam a investigar falhas de comunicação.
 
-Esses conhecimentos são úteis no Suporte de TI para investigar situações em que um computador acessa dispositivos da própria rede, mas não consegue alcançar recursos de outro segmento.
+Esses conhecimentos são úteis em **Suporte de TI e Redes** para investigar situações em que um computador consegue acessar equipamentos locais, mas não recursos de outro setor.
 
 ## Entendendo os termos técnicos
 
-| Termo | O que significa? |
+| Termo | Explicação simples |
 |---|---|
-| IPv4 | Endereço numérico utilizado para identificar um dispositivo em uma rede. |
-| Roteador | Equipamento que encaminha informações entre redes diferentes. |
-| Switch | Equipamento que conecta dispositivos dentro de uma rede local. |
-| Gateway padrão | Endereço utilizado pelo computador para alcançar outras redes. |
-| Máscara de rede | Informação que ajuda a identificar qual parte do endereço pertence à rede. |
-| Sub-rede | Parte de uma rede organizada em uma faixa de endereços. |
-| ICMP | Protocolo usado em verificações de conectividade, como o comando `ping`. |
-| CIDR | Forma de indicar o tamanho de uma rede usando prefixos como `/8`, `/16` e `/24`. |
+| IPv4 | Endereço que identifica um equipamento na rede. |
+| Switch | Equipamento que conecta computadores dentro de uma rede local. |
+| Roteador | Equipamento que permite a comunicação entre redes diferentes. |
+| Gateway padrão | Caminho de saída usado pelo computador para chegar a outras redes. |
+| Máscara de rede | Indica quais endereços pertencem à mesma rede. |
+| Interface | Porta de comunicação de um equipamento de rede. |
+| ICMP | Protocolo utilizado em testes de conectividade, como o `ping`. |
+| CIDR | Notação que representa o tamanho de uma rede, como `/8`, `/16` e `/24`. |
+| Copper Straight-Through | Tipo de cabo de rede utilizado para conectar os dispositivos na simulação. |
 
+## Onde esse conhecimento pode ser aplicado?
+
+**Cenário fictício: comunicação entre setores de uma empresa**
+
+Uma empresa possui três setores: **Financeiro**, **Comercial** e **Operações**. Cada setor utiliza uma rede própria para organizar seus computadores.
+
+Um dia, o Comercial precisa consultar um recurso do Financeiro, mas os computadores estão em redes diferentes. O profissional de TI verifica os endereços, as máscaras e os gateways e utiliza o roteador para permitir a comunicação entre os setores.
+
+**Resultado esperado:** os computadores conseguem trocar informações entre as redes, desde que a configuração esteja correta e não existam regras bloqueando o acesso.
+
+**O que o laboratório ensina:** redes diferentes podem se comunicar por meio de um roteador. Essa separação organiza o ambiente, mas **não garante segurança ou restrição de acesso por si só**; controles adicionais podem ser necessários.
+
+## Observações técnicas
+
+- Os nomes **Rede Classe A, B e C** são utilizados no material didático para representar faixas de endereços diferentes. Em redes atuais, a identificação de sub-redes utiliza prefixos CIDR.
+- A máscara da Rede B é `255.255.0.0` (`/16`), conforme os slides da Aula 07.
+- Os valores e conexões acima foram documentados com base no roteiro do exercício; não representam auditoria de um arquivo `.pkt`.
+- A atividade não apresenta configuração de ACLs, VLANs ou regras de firewall. Portanto, não se deve afirmar que há isolamento de segurança entre os setores.
+
+## Origem do laboratório
+
+Atividade educacional da **Aula 07 — Fase Técnica**, do **Programa Mulher Digital**, sobre comunicação entre três redes distintas no Cisco Packet Tracer. Documentação organizada para registrar os conceitos e configurações estudados, sem representar uma implantação corporativa real.
