@@ -6,6 +6,8 @@ Neste laboratório do Programa Mulher Digital, utilizei o **Cisco Packet Tracer*
 
 O objetivo foi compreender como configurar endereços IPv4, máscaras e gateways e como o roteador permite a comunicação entre dispositivos de redes diferentes.
 
+---
+
 ## Objetivos
 
 - Montar uma topologia com três redes conectadas a um roteador central.
@@ -14,14 +16,7 @@ O objetivo foi compreender como configurar endereços IPv4, máscaras e gateways
 - Entender a diferença entre a comunicação dentro de uma rede e entre redes distintas.
 - Estudar a verificação de conectividade usando ICMP.
 
-## Ferramentas e dispositivos
-
-| Dispositivo | Quantidade | Função |
-|---|---:|---|
-| Cisco Packet Tracer | 1 | Simular o ambiente de rede. |
-| Roteador Cisco 2911 | 1 | Encaminhar o tráfego entre as três redes. |
-| Switch Cisco 2960 | 3 | Conectar os computadores de cada rede. |
-| Computador PC-PT | 6 | Representar os dispositivos finais. |
+---
 
 ## Topologia
 
@@ -29,73 +24,7 @@ O objetivo foi compreender como configurar endereços IPv4, máscaras e gateways
 
 Cada rede possui dois computadores ligados a um switch. Os três switches estão conectados ao roteador central.
 
-## Configurações realizadas no exercício
-
-### Resumo do endereçamento
-
-| Rede | Endereço de rede | Máscara | Prefixo CIDR | Gateway |
-|---|---|---|---|---|
-| Rede A | `10.0.0.0` | `255.0.0.0` | `/8` | `10.0.0.1` |
-| Rede B | `172.16.0.0` | `255.255.0.0` | `/16` | `172.16.0.1` |
-| Rede C | `192.168.1.0` | `255.255.255.0` | `/24` | `192.168.1.1` |
-
-### Roteador Cisco 2911
-
-O roteador utiliza uma interface para cada rede. No material da atividade, as interfaces são habilitadas (**On**) e recebem os seguintes endereços:
-
-| Interface | Rede conectada | Endereço IPv4 | Máscara | Estado previsto |
-|---|---|---|---|---|
-| `GigabitEthernet0/0` | Rede A | `10.0.0.1` | `255.0.0.0` | On |
-| `GigabitEthernet0/1` | Rede B | `172.16.0.1` | `255.255.0.0` | On |
-| `GigabitEthernet0/2` | Rede C | `192.168.1.1` | `255.255.255.0` | On |
-
-**Como foi orientado:** acessar a aba **Config** do roteador e definir o endereço IPv4 em cada interface. Os endereços do roteador também são utilizados como gateways pelos computadores de cada rede.
-
-### Computadores da Rede A
-
-| Computador | IPv4 | Máscara | Gateway |
-|---|---|---|---|
-| PC A1 | `10.0.0.2` | `255.0.0.0` | `10.0.0.1` |
-| PC A2 | `10.0.0.3` | `255.0.0.0` | `10.0.0.1` |
-
-### Computadores da Rede B
-
-| Computador | IPv4 | Máscara | Gateway |
-|---|---|---|---|
-| PC B1 | `172.16.0.2` | `255.255.0.0` | `172.16.0.1` |
-| PC B2 | `172.16.0.3` | `255.255.0.0` | `172.16.0.1` |
-
-### Computadores da Rede C
-
-| Computador | IPv4 | Máscara | Gateway |
-|---|---|---|---|
-| PC C1 | `192.168.1.2` | `255.255.255.0` | `192.168.1.1` |
-| PC C2 | `192.168.1.3` | `255.255.255.0` | `192.168.1.1` |
-
-**Como foi orientado:** em cada computador, acessar **Desktop > IP Configuration** e preencher os campos de endereço IPv4, máscara e gateway.
-
-### Conexões do roteador aos switches
-
-O material orienta utilizar o cabo **Copper Straight-Through** nas conexões.
-
-| Origem (roteador) | Destino (switch) |
-|---|---|
-| `GigabitEthernet0/0` | Switch A — `FastEthernet0/1` |
-| `GigabitEthernet0/1` | Switch B — `FastEthernet0/1` |
-| `GigabitEthernet0/2` | Switch C — `FastEthernet0/1` |
-
-### Conexões dos computadores aos switches
-
-| Computador / porta | Switch / porta | Rede |
-|---|---|---|
-| PC A1 — `FastEthernet0` | Switch A — `FastEthernet0/2` | A |
-| PC A2 — `FastEthernet0` | Switch A — `FastEthernet0/3` | A |
-| PC B1 — `FastEthernet0` | Switch B — `FastEthernet0/2` | B |
-| PC B2 — `FastEthernet0` | Switch B — `FastEthernet0/3` | B |
-| PC C1 — `FastEthernet0` | Switch C — `FastEthernet0/2` | C |
-| PC C2 — `FastEthernet0` | Switch C — `FastEthernet0/3` | C |
-
-> O material apresenta a conexão física dos switches, mas não exige configurações individuais de VLANs ou endereços de gerenciamento neles.
+---
 
 ## Etapas da atividade
 
@@ -108,6 +37,8 @@ O material orienta utilizar o cabo **Copper Straight-Through** nas conexões.
 7. Configurar e habilitar as três interfaces do roteador.
 8. Verificar a comunicação entre computadores de redes diferentes.
 
+---
+
 ## Fluxograma da atividade
 
 ```mermaid
@@ -118,6 +49,102 @@ flowchart TD
     D --> E[Configurar interfaces do roteador]
     E --> F[Verificar comunicação entre as redes]
 ```
+
+---
+
+## Onde esse conhecimento pode ser aplicado?
+
+**Cenário fictício: comunicação entre setores de uma empresa**
+
+Uma empresa possui três setores: **Financeiro**, **Comercial** e **Operações**. Cada setor utiliza uma rede própria para organizar seus computadores.
+
+Um dia, o Comercial precisa consultar um recurso do Financeiro, mas os computadores estão em redes diferentes. O profissional de TI verifica os endereços, as máscaras e os gateways e utiliza o roteador para permitir a comunicação entre os setores.
+
+**Resultado esperado:** os computadores conseguem trocar informações entre as redes, desde que a configuração esteja correta e não existam regras bloqueando o acesso.
+
+**O que o laboratório ensina:** redes diferentes podem se comunicar por meio de um roteador. Essa separação organiza o ambiente, mas **não garante segurança ou restrição de acesso por si só**; controles adicionais podem ser necessários.
+
+---
+
+## Configurações realizadas no exercício
+
+### Resumo do endereçamento
+
+| Rede | Endereço de rede | Máscara | Prefixo CIDR | Gateway |
+|---|---|---|---|---|
+| Rede A | `10.0.0.0` | `255.0.0.0` | `/8` | `10.0.0.1` |
+| Rede B | `172.16.0.0` | `255.255.0.0` | `/16` | `172.16.0.1` |
+| Rede C | `192.168.1.0` | `255.255.255.0` | `/24` | `192.168.1.1` |
+
+---
+
+### Roteador Cisco 2911
+
+O roteador utiliza uma interface para cada rede. No material da atividade, as interfaces são habilitadas (**On**) e recebem os seguintes endereços:
+
+| Interface | Rede conectada | Endereço IPv4 | Máscara | Estado previsto |
+|---|---|---|---|---|
+| `GigabitEthernet0/0` | Rede A | `10.0.0.1` | `255.0.0.0` | On |
+| `GigabitEthernet0/1` | Rede B | `172.16.0.1` | `255.255.0.0` | On |
+| `GigabitEthernet0/2` | Rede C | `192.168.1.1` | `255.255.255.0` | On |
+
+---
+
+### Computadores da Rede A
+
+| Computador | IPv4 | Máscara | Gateway |
+|---|---|---|---|
+| PC A1 | `10.0.0.2` | `255.0.0.0` | `10.0.0.1` |
+| PC A2 | `10.0.0.3` | `255.0.0.0` | `10.0.0.1` |
+
+---
+
+### Computadores da Rede B
+
+| Computador | IPv4 | Máscara | Gateway |
+|---|---|---|---|
+| PC B1 | `172.16.0.2` | `255.255.0.0` | `172.16.0.1` |
+| PC B2 | `172.16.0.3` | `255.255.0.0` | `172.16.0.1` |
+
+---
+
+### Computadores da Rede C
+
+| Computador | IPv4 | Máscara | Gateway |
+|---|---|---|---|
+| PC C1 | `192.168.1.2` | `255.255.255.0` | `192.168.1.1` |
+| PC C2 | `192.168.1.3` | `255.255.255.0` | `192.168.1.1` |
+
+---
+
+Em cada computador, acessar **Desktop > IP Configuration** e preencher os campos de endereço IPv4, máscara e gateway.
+
+---
+
+### Conexões do roteador aos switches
+
+O material orienta utilizar o cabo **Copper Straight-Through** nas conexões.
+
+| Origem (roteador) | Destino (switch) |
+|---|---|
+| `GigabitEthernet0/0` | Switch A — `FastEthernet0/1` |
+| `GigabitEthernet0/1` | Switch B — `FastEthernet0/1` |
+| `GigabitEthernet0/2` | Switch C — `FastEthernet0/1` |
+
+---
+
+### Conexões dos computadores aos switches
+
+| Computador / porta | Switch / porta | Rede |
+|---|---|---|
+| PC A1 — `FastEthernet0` | Switch A — `FastEthernet0/2` | A |
+| PC A2 — `FastEthernet0` | Switch A — `FastEthernet0/3` | A |
+| PC B1 — `FastEthernet0` | Switch B — `FastEthernet0/2` | B |
+| PC B2 — `FastEthernet0` | Switch B — `FastEthernet0/3` | B |
+| PC C1 — `FastEthernet0` | Switch C — `FastEthernet0/2` | C |
+| PC C2 — `FastEthernet0` | Switch C — `FastEthernet0/3` | C |
+
+---
 
 ## Testes e resultados
 
@@ -156,25 +183,8 @@ Esses conhecimentos são úteis em **Suporte de TI e Redes** para investigar sit
 | CIDR | Notação que representa o tamanho de uma rede, como `/8`, `/16` e `/24`. |
 | Copper Straight-Through | Tipo de cabo de rede utilizado para conectar os dispositivos na simulação. |
 
-## Onde esse conhecimento pode ser aplicado?
-
-**Cenário fictício: comunicação entre setores de uma empresa**
-
-Uma empresa possui três setores: **Financeiro**, **Comercial** e **Operações**. Cada setor utiliza uma rede própria para organizar seus computadores.
-
-Um dia, o Comercial precisa consultar um recurso do Financeiro, mas os computadores estão em redes diferentes. O profissional de TI verifica os endereços, as máscaras e os gateways e utiliza o roteador para permitir a comunicação entre os setores.
-
-**Resultado esperado:** os computadores conseguem trocar informações entre as redes, desde que a configuração esteja correta e não existam regras bloqueando o acesso.
-
-**O que o laboratório ensina:** redes diferentes podem se comunicar por meio de um roteador. Essa separação organiza o ambiente, mas **não garante segurança ou restrição de acesso por si só**; controles adicionais podem ser necessários.
-
-## Observações técnicas
-
-- Os nomes **Rede Classe A, B e C** são utilizados no material didático para representar faixas de endereços diferentes. Em redes atuais, a identificação de sub-redes utiliza prefixos CIDR.
-- A máscara da Rede B é `255.255.0.0` (`/16`), conforme os slides da Aula 07.
-- Os valores e conexões acima foram documentados com base no roteiro do exercício; não representam auditoria de um arquivo `.pkt`.
-- A atividade não apresenta configuração de ACLs, VLANs ou regras de firewall. Portanto, não se deve afirmar que há isolamento de segurança entre os setores.
+---
 
 ## Origem do laboratório
 
-Atividade educacional da **Aula 07 — Fase Técnica**, do **Programa Mulher Digital**, sobre comunicação entre três redes distintas no Cisco Packet Tracer. Documentação organizada para registrar os conceitos e configurações estudados, sem representar uma implantação corporativa real.
+Atividade do **Programa Mulher Digital**, sobre comunicação entre três redes distintas no Cisco Packet Tracer. Documentação organizada para registrar os conceitos e configurações estudados, sem representar uma implantação corporativa.
