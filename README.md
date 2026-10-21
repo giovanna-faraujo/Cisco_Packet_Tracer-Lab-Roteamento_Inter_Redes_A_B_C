@@ -1,4 +1,4 @@
-# Roteamento entre três redes IPv4 no Cisco Packet Tracer
+# Roteamento entre três redes IPv4
 
 ## Visão geral
 
